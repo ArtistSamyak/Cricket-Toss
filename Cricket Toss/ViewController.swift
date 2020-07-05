@@ -46,6 +46,25 @@ class ViewController: UIViewController {
 
     }
     
+    //when phone is shaked..
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        spinningAnimation()
+        coinImage.alpha = 1 //making the coin visible
+        resultLabel.alpha = 0
+        let seconds = 3.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // this code should be executed with the delay of 3 seconds..
+            self.coinImage.image = self.coinImages.randomElement() //randomly choose heads or tails.
+            if self.coinImage.image == self.coinImages[0] {
+                self.resultLabel.text = "Tails!"
+                self.resultLabel.alpha = 1
+            }else{
+                self.resultLabel.text = "Heads!"
+                self.resultLabel.alpha = 1
+            }
+        }
+    }
+    
     func spinningAnimation() {
         //this function keeps switching with the heads and tales image with the time delay of 0.3 seconds between every switch.
         coinImage.image = coinImages[0]
